@@ -6,4 +6,4 @@ class AtracaoSerializer(ModelSerializer):
 
     class Meta:
         model = models.Atracao
-        fields = ('id', 'nome', 'descricao', 'horario_func', 'idade_min')
+        fields = ('id', 'nome', 'descricao', 'horario_func', 'idade_min', 'foto')
