@@ -7,11 +7,12 @@ from localizacao.models import Localizacao
 
 class PontoTuristico(models.Model):
     nome = models.CharField(max_length=150)
-    dedescricao = models.TextField()
+    descricao = models.TextField()
     aprovado = models.BooleanField(default=False)
     atracoes = models.ManyToManyField(Atracao)
     comentario = models.ManyToManyField(Comentario)
     avaliacoes =models.ManyToManyField(Avaliacao)
-    localizacao = models.ForeignKey(Localizacao, on_delete=models.CASCADE)
+    localizacao = models.ForeignKey(Localizacao, on_delete=models.CASCADE, null=True, blank=True)
+
     def __str__(self):
         return self.nome
