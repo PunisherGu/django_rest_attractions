@@ -1,17 +1,37 @@
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import viewsets
+from rest_framework import filters
+
 from core.models import PontoTuristico
 from . import serializers
+
 
 class PontoTuristicoViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
     serializer_class = serializers.PontoTuristicoSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['nome']
 
     def get_queryset(self):
-        return PontoTuristico.objects.all()
+        id = self.request.query_params.get('id', None)
+        nome = self.request.query_params.get('Nome__iexact', None)
+        descricao = self.request.query_params.get('descricao__iexact', None)
+
+        queryset =  PontoTuristico.objects.all()
+
+        if id:
+            queryset = PontoTuristico.objects.filter(id=id)
+
+        if nome:
+            queryset = PontoTuristico.objects.filter(nome=nome)
+
+        if descricao:
+            queryset = PontoTuristico.objects.filter(descricao=descricao)
+
+        return queryset
 
     def list(self, request, *args, **kwargs):
         return super(PontoTuristicoViewSet, self).list(request, *args, **kwargs)
