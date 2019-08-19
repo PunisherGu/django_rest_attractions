@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'comentarios',
     'avaliacoes',
     'localizacao',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
